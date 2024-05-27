@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import ReserveFailed from './ReserveFailed';
 import ReserveSuccess from './ReserveSuccess';
+import {useSearchParams} from 'react-router-dom';
+import axios from '../url/axios';
 
 function ReserveFinish() {
 
   const [paymentStatus, setPaymentStatus] = useState('');
+  const [searchParams] = useSearchParams();
+
+ const billId = searchParams.get('billplz[id]').toString();
+  
 
   useEffect(() => {
-    // Fetch data from your server when the component mounts
-    fetch(`${process.env.REACT_APP_SERVER}/billplz-callback`)
-      .then((response) => response.text())
-      .then((data) => {
-        console.log(data)
-        setPaymentStatus(data);
-      });
+    const data = {billId: billId}
+    axios.post('/booking-status', data).then((response) => {
+      setPaymentStatus(response.data.status);
+    })
   }, []);
 
   console.log(paymentStatus)
@@ -21,11 +24,11 @@ function ReserveFinish() {
   return (
     <div>
       <div
-        className="row justify-content-center min-vh-100"
+        className="row justify-content-center"
         style={{ backgroundColor: "#333" }}
       >
         <div className="title">
-              {paymentStatus === 'Callback received successfully' ? (<ReserveSuccess />) : (<ReserveFailed />)}
+              {paymentStatus === 'Booked' ? (<ReserveSuccess />) : (<ReserveFailed replace />)}
               </div>
 
       </div>

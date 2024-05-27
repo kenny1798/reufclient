@@ -67,7 +67,7 @@ input[type=number] {
   font-size: 50px;
   font-family: "Tangerine", cursive;
   line-height: 30px;
-  color: #333
+  color: #c0a361
 }
 
 .mu-title h2 {
@@ -86,4 +86,13 @@ input[type=number] {
   background: #b2dbbf;
   max-width: 500px;
   width: 80%;
+}
+
+.react-datepicker__day--outside-month {
+  color: transparent !important;
+  pointer-events: none;
+}
+
+.datePicker {
+  width: 100%;
 }

@@ -3,7 +3,7 @@ import React from 'react'
 function ReserveSuccess() {
 
 const delayNav = () => {
-window.location.replace('http://localhost:3002')
+window.location.replace(process.env.REACT_APP_LP)
 }
 
 setTimeout(delayNav, 6000);
